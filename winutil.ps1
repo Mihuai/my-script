@@ -5,7 +5,7 @@
 ################################################################################################################
 <#
 .NOTES
-    Author         : Mihuai @mihuai tech
+    Author         : Mihuai @mihuaitech
     Runspace Author: @Mihuai
     GitHub         : https://github.com/Mihuai
     Version        : 26.01.08
@@ -67,7 +67,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     $script = if ($PSCommandPath) {
         "& { & `'$($PSCommandPath)`' $($argList -join ' ') }"
     } else {
-        "&([ScriptBlock]::Create((irm https://github.com/ChrisTitusTech/winutil/releases/latest/download/winutil.ps1))) $($argList -join ' ')"
+        "&([ScriptBlock]::Create((irm https://github.com/Mihuai/my-script/archive/refs/heads/main.zip))) $($argList -join ' ')"
     }
 
     $powershellCmd = if (Get-Command pwsh -ErrorAction SilentlyContinue) { "pwsh" } else { "powershell" }
@@ -913,7 +913,7 @@ function Invoke-MicrowinGetIso {
         $driveLetter = (Get-Volume -DiskImage $mountedISO).DriveLetter
         Write-Host "Iso mounted to '$driveLetter'"
     } catch {
-        # @ChrisTitusTech  please copy this wiki and change the link below to your copy of the wiki
+        # @mihuaitech  please copy this wiki and change the link below to your copy of the wiki
         $msg = "Failed to mount the image. Error: $($_.Exception.Message)"
         Write-Error $msg
         Write-Error "This is NOT winutil's problem, your ISO might be corrupt, or there is a problem on the system"
@@ -1261,7 +1261,7 @@ function Microwin-GetOscdimg {
     )
 
     $oscdimgPath = "$env:TEMP\oscdimg.exe"
-    $downloadUrl = "https://github.com/ChrisTitusTech/winutil/raw/main/releases/oscdimg.exe"
+    $downloadUrl = "https://github.com/Mihuai/winutil/raw/main/releases/oscdimg.exe"
     Invoke-RestMethod -Uri $downloadUrl -OutFile $oscdimgPath
     $hashResult = Get-FileHash -Path $oscdimgPath -Algorithm SHA256
     $sha256Hash = $hashResult.Hash
@@ -3994,7 +3994,7 @@ function Invoke-WinUtilInstallPSProfile {
         Rename-Item $Profile -NewName ($Profile + '.bak')
     }
 
-    Start-Process powershell -ArgumentList '-Command "irm https://github.com/ChrisTitusTech/powershell-profile/raw/main/setup.ps1 | iex"'
+    Start-Process powershell -ArgumentList '-Command "irm https://github.com/Mihuai/powershell-profile/raw/main/setup.ps1 | iex"'
 }
 function Invoke-WinUtilScript {
     <#
@@ -4043,17 +4043,17 @@ function Invoke-WinUtilScript {
 Function Invoke-WinUtilSponsors {
     <#
     .SYNOPSIS
-        Lists Sponsors from ChrisTitusTech
+        Lists Sponsors from Mihuai
     .DESCRIPTION
-        Lists Sponsors from ChrisTitusTech
+        Lists Sponsors from Mihuai
     .EXAMPLE
         Invoke-WinUtilSponsors
     .NOTES
-        This function is used to list sponsors from ChrisTitusTech
+        This function is used to list sponsors from Mihuai
     #>
     try {
         # Define the URL and headers
-        $url = "https://github.com/sponsors/ChrisTitusTech"
+        $url = "https://github.com/Mihuai"
         $headers = @{
             "User-Agent" = "Chrome/58.0.3029.110"
         }
@@ -4074,8 +4074,8 @@ Function Invoke-WinUtilSponsors {
         $sponsorPattern = '(?<=alt="@)[^"]+'
         $sponsors = [regex]::Matches($currentSponsorsHtml, $sponsorPattern) | ForEach-Object { $_.Value }
 
-        # Exclude "ChrisTitusTech" from the sponsors
-        $sponsors = $sponsors | Where-Object { $_ -ne "ChrisTitusTech" }
+        # Exclude "Mihuai" from the sponsors
+        $sponsors = $sponsors | Where-Object { $_ -ne "Mihuai" }
 
         # Return the sponsors
         return $sponsors
@@ -7322,23 +7322,12 @@ Function Show-CTTLogo {
     #>
 
     $asciiArt = @"
-    MMMMMMMM               MMMMMMMMHHHHHHHH               HHHHHHHH
-M:::::::M             M:::::::MH:::::::H               H:::::::H
-M::::::::M           M::::::::MH:::::::H               H:::::::H
-M:::::::::M         M:::::::::MH:::::::H               H:::::::H
-M::::::::::M       M::::::::::MHHHHHHHHHHHHHHHHHHHHHHHHHH:::::::H
-M:::::::::::M     M:::::::::::M               H:::::::H
-M:::::::M::::M   M::::M:::::::M               H:::::::H
-M:::::::M M::::M M::::M M:::::::M               H:::::::H
-M:::::::M  M::::M::::M  M:::::::M               H:::::::H
-M:::::::M   M::::M::M   M:::::::M               H:::::::H
-M:::::::M    M::::MM    M:::::::M               H:::::::H
-M:::::::M     M::::M     M:::::::M               H:::::::H
-M:::::::M      M:::M      M:::::::MHHHHHHHHHHHHHHHH:::::::H
-M:::::::M       M::M       M:::::::MH:::::::H               H:::::::H
-M:::::::M        M:M        M:::::::MH:::::::H               H:::::::H
-M:::::::M         MM         M:::::::MH:::::::H               H:::::::H
-MMMMMMMMM                     MMMMMMMMHHHHHHHH               HHHHHHHH
+███╗   ███╗ ██╗  ██╗
+████╗ ████║ ██║  ██║
+██╔████╔██║ ███████║
+██║╚██╔╝██║ ██╔══██║
+██║ ╚═╝ ██║ ██║  ██║
+╚═╝     ╚═╝ ╚═╝  ╚═╝
 
 
 ====  MIHUAI  TECH  =====
@@ -10912,7 +10901,7 @@ $sync.configs.tweaks = @'
   },
   "WPFTweaksLaptopHibernation": {
     "Content": "Set Hibernation as default (good for laptops)",
-    "Description": "Most modern laptops have connected standby enabled which drains the battery, this sets hibernation as default which will not drain the battery. See issue https://github.com/ChrisTitusTech/winutil/issues/1399",
+    "Description": "Most modern laptops have connected standby enabled which drains the battery, this sets hibernation as default which will not drain the battery. See issue https://github.com/Mihuai/winutil/issues/1399",
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "Order": "a030_",
@@ -15812,12 +15801,11 @@ $sync["AboutMenuItem"].Add_Click({
     Invoke-WPFPopup -Action "Hide" -Popups @("Settings")
 
     $authorInfo = @"
-Author   : <a href="https://github.com/ChrisTitusTech">@christitustech</a>
-UI       : <a href="https://github.com/MyDrift-user">@MyDrift-user</a>, <a href="https://github.com/Marterich">@Marterich</a>
-Runspace : <a href="https://github.com/DeveloperDurp">@DeveloperDurp</a>, <a href="https://github.com/Marterich">@Marterich</a>
-MicroWin : <a href="https://github.com/KonTy">@KonTy</a>, <a href="https://github.com/CodingWonders">@CodingWonders</a>, <a href="https://github.com/Real-MullaC">@Real-MullaC</a>
-GitHub   : <a href="https://github.com/ChrisTitusTech/winutil">ChrisTitusTech/winutil</a>
-Version  : <a href="https://github.com/ChrisTitusTech/winutil/releases/tag/$($sync.version)">$($sync.version)</a>
+Author   : <a href="https://github.com/Mihuai">@mihuaitech</a>
+UI       : <a href="https://facebook.com/whui.pqh">@𝑷𝒉𝒊́ 𝑸𝒖𝒂𝒏𝒈 𝑯𝒖𝒚</a>
+Runspace : <a href="https://github.com/Mihuai">@mihuaitech</a>
+MicroWin : <a href="https://github.com/Mihuai">@mihuaitech</a>
+GitHub   : <a href="https://github.com/Mihuai/my-script</a>
 "@
     Show-CustomDialog -Title "About" -Message $authorInfo
 })
@@ -15826,13 +15814,13 @@ $sync["SponsorMenuItem"].Add_Click({
     Invoke-WPFPopup -Action "Hide" -Popups @("Settings")
 
     $authorInfo = @"
-<a href="https://github.com/sponsors/ChrisTitusTech">Current sponsors for ChrisTitusTech:</a>
+<a href="https://github.com/Mihuai">Current sponsors for Mihuai:</a>
 "@
     $authorInfo += "`n"
     try {
         $sponsors = Invoke-WinUtilSponsors
         foreach ($sponsor in $sponsors) {
-            $authorInfo += "<a href=`"https://github.com/sponsors/ChrisTitusTech`">$sponsor</a>`n"
+            $authorInfo += "<a href=`"https://github.com/Mihuai`">$sponsor</a>`n"
         }
     } catch {
         $authorInfo += "An error occurred while fetching or processing the sponsors: $_`n"
